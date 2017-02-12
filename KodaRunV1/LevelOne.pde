@@ -10,10 +10,10 @@ class LevelOne extends Level
 
 class BackgroundLayer extends LevelLayer
 {
+  Koda koda;
  BackgroundLayer(Level owner)
  {
     super(owner);
-    
     setBackgroundColor(color(0,100,210));
     Sprite background_picture = new Sprite("assets/sky.png");
     TilingSprite background = new TilingSprite(background_picture, 0,0,width, height);
@@ -21,10 +21,18 @@ class BackgroundLayer extends LevelLayer
     
     addBoundary(new Boundary(0,height-48,width,height-48));
     addBoundary(new Boundary(-1,0, -1,height));
-    addBoundary(new Boundary( width+1,0, width+1,height));
-    addBoundary(new Boundary(0,48,width,48));
+    addBoundary(new Boundary(-1 + width,height, width+1,0));
+    addBoundary(new Boundary(width,48, 0,48));
     
     showBoundaries = true;
-    addPlayer(new Koda(width/2, height/2));
+    koda = new Koda(width/2, height/2);
+    addPlayer(koda);
+   
+ }
+ 
+ void draw()
+ {
+   super.draw();
+    viewbox.track(parent, koda); 
  }
 }
